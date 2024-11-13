@@ -31,7 +31,29 @@ model.add(tf.layers.dense({
     activation:'softmax'
 }))
 
+//compile model
+model.compile(
+    {
+        optimizer: tf.train.adam(),
+        loss: "categoricalCrossentropy",
+        metrics:['accuracy']
+    }
+)
 
+const metrics = ['loss', 'val_loss', 'acc', 'val_acc'];
+const container = {name: 'Model Training', styles: {height:'1000px'}};
+const fitCallbacks=tfvis.show.fitCallbacks(container, metrics)
+
+//train model
+model.fit(trainXs, trainYs, {
+    batchSize: 20,
+    validationData:[testXs, testYs],
+    epochs: 20,
+    shuffle:true,
+    callbacks:fitCallbacks
+})
+
+//tf-vis library
 
 
 

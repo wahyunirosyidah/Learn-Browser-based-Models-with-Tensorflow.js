@@ -1,5 +1,36 @@
 //MNIST Data Set : Data set yang terkenal dalam tugas compvi seperti mengenalan karakter (huruf) atau digit
 
+export class MnistData{
+    async load(){
+        //Download the sprite and slice it
+        //Download the labels and decode them
+    }
+
+    nextTrainBatch(){
+        //Get the next training batch
+        //slice image according ukuran batch yg diinginkan
+    }
+
+
+    nextTestBatch(){
+        //Get the next test batch
+    }
+}
+
+const data = new MnistData()
+await data.load()
+
+const [trainXs, trainYs] = tf.tidy(()=>{
+    //train data size default = 5500, is 5500 lines, 784 bytes
+    const d=data.nextTrainBatch(TRAIN_DATA_SIZE);
+    return [
+        d.xs.reshape([TRAIN_DATA_SIZE,28,28,1]),
+        d.labels //sudah di one hot
+    ]
+})
+
+
+
 model=tf.sequential()
 
 model.add(tf.layers.conv2d({
